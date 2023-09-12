@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useCallback, useState } from "react";
-import { Button } from "../../components";
+import React, { useCallback, useState } from "react";
+import { Button, Input } from "../../components";
 
 type TDLprops = {
   addTask: (title: string) => Promise<void>;
@@ -8,8 +8,8 @@ type TDLprops = {
 const TodoListTitle: React.FC<TDLprops> = ({ addTask }) => {
   const [title, setTitle] = useState("");
 
-  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+  const handleChange = useCallback((value: string) => {
+    setTitle(value);
   }, []);
 
   const handleSubmit = useCallback(
@@ -45,19 +45,7 @@ const TodoListTitle: React.FC<TDLprops> = ({ addTask }) => {
           className="d-flex justify-content-between "
           id="validationServer03"
         >
-          <input
-            data-testid="input-text"
-            role="searchbox"
-            className="form-control me-2"
-            id="validationServer03"
-            aria-label="Sizing example input"
-            aria-describedby="validationServer03Feedback"
-            required
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            value={title}
-            placeholder="Введите текст"
-          />
+          <Input onChange={handleChange} onKeyDown={handleKeyDown} className="form-control me-2" />
           <Button className={"btn mw-200 btn-" + buttonClass()} onClick={handleSubmit}>
             Создать
           </Button>
