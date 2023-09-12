@@ -28,12 +28,14 @@ class TasksService {
 
     localStorage.setItem(this.dataKey, JSON.stringify([task, ...currentTasks]));
     const newCurrentTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-    
-    await delay(Math.random() * 2000)
+
+    await delay(Math.random() * 2000);
     return Promise.resolve(getSortedTasks(newCurrentTasks));
   };
 
-  removeTask = async (id: string): Promise<{ tasks: Task[]; error?: string }> => {
+  removeTask = async (
+    id: string
+  ): Promise<{ tasks: Task[]; error?: string }> => {
     const currentTasks: Task[] = JSON.parse(
       localStorage.getItem("tasks") || "[]"
     );
@@ -46,8 +48,8 @@ class TasksService {
 
     localStorage.setItem(this.dataKey, JSON.stringify(newTasks));
 
-    await delay(Math.random() * 2000)
-    
+    await delay(Math.random() * 2000);
+
     return Promise.resolve({ tasks: newTasks });
   };
 
@@ -60,7 +62,7 @@ class TasksService {
     if (!taskToChange) {
       return Promise.reject({ error: `Task with id = ${id} not found` });
     }
-    completed = !completed;
+
     const newTask: Task = { ...taskToChange, completed };
 
     const newTasks = [...oldTasks, newTask];

@@ -26,7 +26,7 @@ const Todolist: React.FC<TDprops> = ({
   addTask,
   changeStatus,
 }) => {
-  const handleTaskDelete = (id: string, completed: boolean) => {
+  const handleChangeStatus = (id: string, completed: boolean) => {
     changeStatus(id, completed);
   };
 
@@ -36,22 +36,23 @@ const Todolist: React.FC<TDprops> = ({
 
       <div>
         <ul className="list-group">
-          {tasks.map((el, index) => {
+          {tasks.map((task, index) => {
             return (
               <li
-                key={el.id}
+                key={task.id}
                 data-testid={`task-item-${index}`}
                 className="list-group-item list-group-item-action d-flex mb-2 align-items-center mw"
               >
                 <Checkbox
-                  task={el}
-                  onChange={() => {
-                    console.log(el.id)
-                    handleTaskDelete(el.id, el.completed)
-                  } }
-                />
+                  active={task.completed}
+                  onChange={(completed: boolean) => {
+                    handleChangeStatus(task.id, completed);
+                  }}
+                >
+                  {task.title}
+                </Checkbox>
                 <Button
-                  onClick={() => removeTask(el.id)}
+                  onClick={() => removeTask(task.id)}
                   iconName="trash"
                   className="btn-danger text-white d-flex align-items-center"
                 />
